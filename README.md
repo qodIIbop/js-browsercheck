@@ -1,7 +1,7 @@
 # js-browsercheck
 
 ## Description
-Checks js scripts for browser incompatibilties. Uses (jscc)[http://jscc.info/] to check all js scripts and then stores to analysed data in a text file. The website and single file checker was created by (tbusser)[https://github.com/tbusser/jscc]. The app uses selenium to check which browsers are not compatible with your js scripts and then sums up the outputs (in which file with which function which browsers are not compatible)
+Checks js scripts for browser incompatibilties. Uses [jscc](http://jscc.info/) to check all js scripts and then stores to analysed data in a text file. The website and single file checker was created by [tbusser](https://github.com/tbusser/jscc). The app uses selenium to check which browsers are not compatible with your js scripts and then sums up the outputs (in which file with which function which browsers are not compatible)
 
 ## Installation
 ### Pre-requirements
@@ -16,11 +16,11 @@ Checks js scripts for browser incompatibilties. Uses (jscc)[http://jscc.info/] t
 ## Tests
 No tests where done atm
 
-##TO-DO
+## TO-DO
 - Better result output.
 - Error Handling
 
-##Release notes
+## Release notes
 n/a
 
 ## Licences

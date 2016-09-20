@@ -117,7 +117,6 @@ def create_results(from_w_files, location, fname):
     '''
     content_result_file = {}
     for root, dirs, files in os.walk(from_w_files, topdown=True, followlinks=False):
-        print(files)
         for name in files:
             if name.endswith('.JSON'):
                 filepath = ''.join((root, name))
@@ -138,7 +137,6 @@ def main():
     args = parser.parse_args()
 
     results_folder_path = create_result_folder(APP_MAIN_FOLDER)
-    print(results_folder_path)
 
     for js_file in check_js_files(args.location):
         non_compatiblities = {}
@@ -171,6 +169,7 @@ def main():
     final_result_folder = results_folder_path+"/Result"
     os.mkdir(final_result_folder)
     create_results(results_folder_path,final_result_folder, "result.JSON")
+    print("Check "+results_folder_path+" for results")
 
 if __name__ == '__main__':
   main()
