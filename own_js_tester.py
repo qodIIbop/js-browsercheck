@@ -10,10 +10,14 @@ from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome import service
 from selenium.webdriver.common.keys import Keys
+from jinja2 import Environment, PackageLoader
 
 #config
 URL = 'http://jscc.info/'
-APP_MAIN_FOLDER = os.path.expanduser('~/js-browser/')
+APP_RESULTS_MAIN_FOLDER = os.path.expanduser('~/js-browser/')
+APP_FOLDER = os.getcwd()
+TEMPLATES = os.path.join(cwd, 'templates')
+ENV = Environment(loader=PackageLoader(APP_FOLDER, TEMPLATES))
 
 def make_cwf():
     '''
@@ -49,6 +53,18 @@ def create_result_folder(location):
         make_timestamp_folder = os.mkdir(cwd)
     return cwd
 
+def remove_ext(input_file):
+    '''
+        Removes the extension of a file. Works similar to os.path.splitext
+        Args: the file to remove extension of (Full, relative paths can be given and also works on just filenames)
+        Returns: the filename without extension
+    '''
+    filename = input_file.split("/")
+    filename = filename[-1].split(".")
+    filename.pop(-1)
+    filename = (".").join(filename)
+    return filename
+
 def check_js_files(filepath):
     '''
         Goes through all files and dirs under given root and saves all javascript files and their path to a list
@@ -73,10 +89,11 @@ def filename(js_file, make_json):
         Args: full path to file with filename and extension
         Returns: The name of the file as a JSON file
     '''
-    filename = js_file.split("/")
-    filename = filename[-1].split(".")
-    filename.pop(-1)
-    filename = (".").join(filename)
+    # filename = js_file.split("/")
+    # filename = filename[-1].split(".")
+    # filename.pop(-1)
+    # filename = (".").join(filename)
+    remove_ext(js_file)
     if make_json == "Yes":
         filename = filename+".JSON"
     else:
@@ -108,7 +125,7 @@ def make_output_files(location, name, text):
     results.close()
     return 1
 
-def create_results(from_w_files, location, fname):
+def create_results_JSON(from_w_files, location, fname):
     '''
         Checks all the results for duplicates and saves in a new file without them
         Args: from_w_files: where to look for JSON files to check for duplicates
@@ -131,12 +148,53 @@ def create_results(from_w_files, location, fname):
         json.dump(content_result_file, result, indent=2, sort_keys=True)
     return 1
 
+def create_results_HTML(from_w_files, location, fname, is_HTML):
+    '''
+        Exports results to a HTML5 tag table and saves extension as .html or .md (markdown) depending on is_HTML input_file
+        Args:
+             from_w_files: where to look for JSON files to check for duplicates
+             location: Where to save the result file
+             fname: What to save result file as (no extension added)
+             is_HTML: save as HTMl file or md file
+        Returns: HTML if is_HTML is Yes
+                 md if is_HTML is Yes
+                 0 if neither
+    '''
+    template_data = {}
+    result_table = location+"/"+fname
+    if is_HTML == "Yes":
+        fname = fname + ".html"
+        HTML = True
+    elif is_HTML == "No":
+        fname = fname + ".md"
+        HTML = False
+    template_file = TEMPLATES+"/"+"html_template.txt"
+    with open(result_table) as table_result:
+        json.dumps(template_file, table_result)
+    template = ENV.get_template(result_table)
+    template.render()
+    if HTML:
+        return html
+    else:
+        return md
+
+
+def create_results_JIRA(from_w_files, location, fname):
+    '''
+        Exports results to a jira custom format
+        Args:
+             from_w_files: where to look for JSON files to check for duplicates
+             location: Where to save the result file
+             fname: What to save result file as
+    '''
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("location", help="Where are the files to check. Absolute path needed")
+    parser.add_argument("-fe", "--file_extension", default="JSON", choices=['JSON','HTML','Markdown','Jira'], help="File format of result file")
     args = parser.parse_args()
 
-    results_folder_path = create_result_folder(APP_MAIN_FOLDER)
+    results_folder_path = create_result_folder(APP_RESULTS_MAIN_FOLDER)
 
     for js_file in check_js_files(args.location):
         non_compatiblities = {}
@@ -168,8 +226,16 @@ def main():
     #analyse all outputs and present in new file
     final_result_folder = results_folder_path+"/Result"
     os.mkdir(final_result_folder)
-    create_results(results_folder_path,final_result_folder, "result.JSON")
+    if args.file_extension == "JSON":
+        create_results_JSON(results_folder_path,final_result_folder, "result.JSON")
+    elif args.file_extension == "HTML":
+        create_results_HTML(,,,"Yes")
+    elif args.file_extension == "Markdown":
+        create_results_HTML(,,,"No")
+    else:
+        create_results_JIRA()
     print("Check "+results_folder_path+" for results")
+    print("Check http://caniuse.com/#comparison for list of checked browsers")
 
 if __name__ == '__main__':
   main()
