@@ -5,31 +5,23 @@ import os
 import json
 # import pprint
 import datetime
-<<<<<<< HEAD
 import re
 from shutil import copyfile
 
 # 3rd party imports
 # Needed: selenium and jinja2
-=======
-
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.chrome import service
 from selenium.webdriver.common.keys import Keys
 from jinja2 import Environment, PackageLoader
 
-<<<<<<< HEAD
 # own module imports
 
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 #config
 URL = 'http://jscc.info/'
 APP_RESULTS_MAIN_FOLDER = os.path.expanduser('~/js-browser/')
 APP_FOLDER = os.getcwd()
-<<<<<<< HEAD
 APP = os.path.join(APP_FOLDER, 'own_js_tester.py')
 TEMPLATES = os.path.join(APP_FOLDER, 'templates')
 RESULT_TABLE_NAME = 'Final_eval'
@@ -37,11 +29,6 @@ ENV = Environment(loader=PackageLoader('own_js_tester','templates'))
 BROWSERNAME_JSON = os.path.join(TEMPLATES, 'Browsername.JSON')
 
 #create_folder.py
-=======
-TEMPLATES = os.path.join(cwd, 'templates')
-ENV = Environment(loader=PackageLoader(APP_FOLDER, TEMPLATES))
-
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def make_cwf():
     '''
         Creates a folder from the current time as a continuous string without ms
@@ -58,10 +45,7 @@ def make_cwf():
     folder_name = time_date_clumped+time_hms_clumped+"/"
     return folder_name
 
-<<<<<<< HEAD
 #create_folder.py
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def create_result_folder(location):
     '''
         Checks if main app folder exists and if not make it and after create cw folder
@@ -80,10 +64,7 @@ def create_result_folder(location):
         make_timestamp_folder = os.mkdir(cwd)
     return cwd
 
-<<<<<<< HEAD
 #filemod.py
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def remove_ext(input_file):
     '''
         Removes the extension of a file. Works similar to os.path.splitext
@@ -96,10 +77,7 @@ def remove_ext(input_file):
     filename = (".").join(filename)
     return filename
 
-<<<<<<< HEAD
 #filehandling.py
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def check_js_files(filepath):
     '''
         Goes through all files and dirs under given root and saves all javascript files and their path to a list
@@ -117,10 +95,7 @@ def check_js_files(filepath):
                 js_files.append(path)
     return js_files
 
-<<<<<<< HEAD
 #filemod.py
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def filename(js_file, make_json):
     '''
         Gets the name of the file and removes all 'junk' and makes a JSON file (ie.: path and extension)
@@ -132,21 +107,14 @@ def filename(js_file, make_json):
     # filename = filename[-1].split(".")
     # filename.pop(-1)
     # filename = (".").join(filename)
-<<<<<<< HEAD
     filename = remove_ext(js_file)
-=======
-    remove_ext(js_file)
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
     if make_json == "Yes":
         filename = filename+".JSON"
     else:
          filename = filename
     return filename
 
-<<<<<<< HEAD
 #filehandling.py
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def file_open_and_copy_text_function(js_file):
     '''
         Opens a file given in args and returns the content of whole file
@@ -158,10 +126,7 @@ def file_open_and_copy_text_function(js_file):
     cur_file.close()
     return functions
 
-<<<<<<< HEAD
 #filemod.py
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def make_output_files(location, name, text):
     '''
         Creates files from output of the website
@@ -176,10 +141,7 @@ def make_output_files(location, name, text):
     results.close()
     return 1
 
-<<<<<<< HEAD
 #create_results.py
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 def create_results_JSON(from_w_files, location, fname):
     '''
         Checks all the results for duplicates and saves in a new file without them
@@ -201,7 +163,6 @@ def create_results_JSON(from_w_files, location, fname):
                         content_result_file[key] = value[index]
     with open(location+"/"+fname, "w") as result:
         json.dump(content_result_file, result, indent=2, sort_keys=True)
-<<<<<<< HEAD
     result.close()
     return 1
 
@@ -211,15 +172,6 @@ def create_results_HTML(result_json_loc, location, fname, is_HTML):
         Exports results to a HTML5 tag table and saves extension as .html or .md (markdown) depending on is_HTML input_file
         Args:
              result_json_loc: where to look for result JSON file
-=======
-    return 1
-
-def create_results_HTML(from_w_files, location, fname, is_HTML):
-    '''
-        Exports results to a HTML5 tag table and saves extension as .html or .md (markdown) depending on is_HTML input_file
-        Args:
-             from_w_files: where to look for JSON files to check for duplicates
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
              location: Where to save the result file
              fname: What to save result file as (no extension added)
              is_HTML: save as HTMl file or md file
@@ -228,20 +180,15 @@ def create_results_HTML(from_w_files, location, fname, is_HTML):
                  0 if neither
     '''
     template_data = {}
-<<<<<<< HEAD
     with open(BROWSERNAME_JSON, "r") as get_bnames:
         template_data["browsername"] = json.load(get_bnames)
     get_bnames.close()
-=======
-    result_table = location+"/"+fname
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
     if is_HTML == "Yes":
         fname = fname + ".html"
         HTML = True
     elif is_HTML == "No":
         fname = fname + ".md"
         HTML = False
-<<<<<<< HEAD
     result_table = location+"/"+fname
     with open(result_json_loc, "r") as input_file:
         data = json.load(input_file)
@@ -267,20 +214,6 @@ def create_results_HTML(from_w_files, location, fname, is_HTML):
 
 #create_results.py
 def create_results_JIRA(result_json_loc, location, fname):
-=======
-    template_file = TEMPLATES+"/"+"html_template.txt"
-    with open(result_table) as table_result:
-        json.dumps(template_file, table_result)
-    template = ENV.get_template(result_table)
-    template.render()
-    if HTML:
-        return html
-    else:
-        return md
-
-
-def create_results_JIRA(from_w_files, location, fname):
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
     '''
         Exports results to a jira custom format
         Args:
@@ -288,7 +221,6 @@ def create_results_JIRA(from_w_files, location, fname):
              location: Where to save the result file
              fname: What to save result file as
     '''
-<<<<<<< HEAD
     template_data = {}
     with open(BROWSERNAME_JSON, "r") as get_bnames:
         template_data["browsername"] = json.load(get_bnames)
@@ -314,8 +246,6 @@ def create_results_JIRA(from_w_files, location, fname):
     result_file.close()
     return 1
 
-=======
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
 
 def main():
     parser = argparse.ArgumentParser()
@@ -336,11 +266,7 @@ def main():
         check = browser.find_element_by_xpath("//form/button")
         check.click()
         time.sleep(2)
-<<<<<<< HEAD
 # Check support and save output
-=======
-        #check support and save output
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
         functions = browser.find_elements_by_xpath("//section[@class='report-section']")
         for function in functions:
             function_name = function.find_element_by_xpath("h3/a")
@@ -356,7 +282,6 @@ def main():
         make_output_files(results_folder_path,filename(js_file, "Yes"),non_compatiblities)
         time.sleep(1)
         browser.quit()
-<<<<<<< HEAD
 # Analyse all outputs and present in new file
     final_result_folder = os.path.join(results_folder_path, 'Result')
     os.mkdir(final_result_folder)
@@ -368,19 +293,6 @@ def main():
         create_results_HTML(final_result_JSON, final_result_folder, RESULT_TABLE_NAME, "No")
     else:
         create_results_JIRA(final_result_JSON, final_result_folder, RESULT_TABLE_NAME)
-=======
-    #analyse all outputs and present in new file
-    final_result_folder = results_folder_path+"/Result"
-    os.mkdir(final_result_folder)
-    if args.file_extension == "JSON":
-        create_results_JSON(results_folder_path,final_result_folder, "result.JSON")
-    elif args.file_extension == "HTML":
-        create_results_HTML(,,,"Yes")
-    elif args.file_extension == "Markdown":
-        create_results_HTML(,,,"No")
-    else:
-        create_results_JIRA()
->>>>>>> 9418a514979239c19cce14e776324dd7611c64b9
     print("Check "+results_folder_path+" for results")
     print("Check http://caniuse.com/#comparison for list of checked browsers")
 
