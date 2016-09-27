@@ -6,7 +6,6 @@ import json
 # import pprint
 import datetime
 import re
-from shutil import copyfile
 
 # 3rd party imports
 # Needed: selenium and jinja2
@@ -25,7 +24,7 @@ APP_FOLDER = os.getcwd()
 APP = os.path.join(APP_FOLDER, 'own_js_tester.py')
 TEMPLATES = os.path.join(APP_FOLDER, 'templates')
 RESULT_TABLE_NAME = 'Final_eval'
-ENV = Environment(loader=PackageLoader('own_js_tester','templates'))
+ENV = Environment(loader=PackageLoader('own_js_tester','templates'), trim_blocks=True, lstrip_blocks=True)
 BROWSERNAME_JSON = os.path.join(TEMPLATES, 'Browsername.JSON')
 
 #create_folder.py
@@ -55,9 +54,7 @@ def create_result_folder(location):
     timestamp = make_cwf()
     if not os.path.exists(location):
         os.mkdir(location)
-    if location.endswith('/'):
-        location = location
-    else:
+    if not location.endswith('/'):
         location = location+"/"
     cwd = location+timestamp
     if not os.path.exists(cwd):
@@ -103,15 +100,9 @@ def filename(js_file, make_json):
         Args: full path to file with filename and extension
         Returns: The name of the file as a JSON file
     '''
-    # filename = js_file.split("/")
-    # filename = filename[-1].split(".")
-    # filename.pop(-1)
-    # filename = (".").join(filename)
     filename = remove_ext(js_file)
     if make_json == "Yes":
         filename = filename+".JSON"
-    else:
-         filename = filename
     return filename
 
 #filehandling.py
@@ -176,8 +167,7 @@ def create_results_HTML(result_json_loc, location, fname, is_HTML):
              fname: What to save result file as (no extension added)
              is_HTML: save as HTMl file or md file
         Returns: HTML if is_HTML is Yes
-                 md if is_HTML is Yes
-                 0 if neither
+                 md if is_HTML is No
     '''
     template_data = {}
     with open(BROWSERNAME_JSON, "r") as get_bnames:

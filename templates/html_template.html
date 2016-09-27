@@ -6,28 +6,32 @@
                 border: 1px solid black;
                 border-collapse: collapse;
             }
+            td {
+                text-align: center;
+            }
         </style>
+        <title>Result</title>
     </head>
     <body>
         <table>
             <tr>
                 <th></th>
-            {% for browser in template_data["browsername"] %}
+                {% for browser in template_data["browsername"] %}
                 <th>{{browser}}</th>
-            {% endfor %}
+                {% endfor %}
             </tr>
             {% for function in template_data.keys() %}
                 {% if function != "browsername" %}
-                <tr>
-                    <td>{{ function }}</td>
-                    {% for browser in template_data["browsername"] %}
-                        {% if template_data[function].get(browser) %}
-                            <td bgcolor="red">{{ template_data[function][browser] }}</td>
-                        {% else %}
-                            <td bgcolor="green"></td>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
+            <tr>
+                <td>{{ function }}</td>
+                        {% for browser in template_data["browsername"] %}
+                            {% if template_data[function].get(browser) %}
+                <td bgcolor="red">{{ template_data[function][browser] }}</td>
+                            {% else %}
+                <td bgcolor="green"></td>
+                            {% endif %}
+                        {% endfor %}
+            </tr>
                 {% endif %}
             {% endfor %}
         </table>
