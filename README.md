@@ -5,91 +5,19 @@ The app checks the js scripts for browser incompatibilties. It uses the website 
 
 ## Installation
 ### Pre-requirements
-- Selenium  
-- Python3  
+- Selenium
+- Python3
 - Chrome and chromedriver
 - Jinja2
 
 ### After Pre-requirements are met do the following steps:
-1. Go to location you downloaded or cloned the git repo to  
-2. usage: own_js_tester.py [-fe {JSON,HTML,Markdown,Jira}] location  
+1. Go to location you downloaded or cloned the git repo to
+2. usage: own_js_tester.py [-fe {JSON,HTML,Markdown,Jira}] location
 3. `python3 own_js_tester.py -fe [option] [abs/path/of/folder]`
 
-## Output HTML and md sample
-*(same jinja template is used for both)*
-<html>
-    <head>
-        <style>
-            table, th, td, tr {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-        </style>
-    </head>
-    <body>
-        <table>
-            <tr>
-                <th></th>
-                <th>Chrome </th>
-                <th>Firefox </th>
-                <th>Firefox for Android </th>
-                <th>IE </th><th>iOS Safari </th>
-                <th>Opera </th>
-                <th>Opera Mini </th>
-                <th>Safari </th>
-                <th>UC Browser for Android </th>
-            </tr>
-            <tr>
-                <td>JSON parsing</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">2 to 3</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">5.5 to 7</td>
-                <td bgcolor="red">3.2</td>
-                <td bgcolor="red">9.5-9.6 to 10.0-10.1</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">3.1 to 3.2</td>
-                <td bgcolor="green"></td>
-            </tr>
-            <tr>
-                <td>Strict mode</td>
-                <td bgcolor="red">4 to 12</td>
-                <td bgcolor="red">2 to 3.6</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">5.5 to 9</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">9.5-9.6 to 11.6</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">3.1 to 5</td>
-                <td bgcolor="green"></td>
-            </tr>
-            <tr>
-                <td>FileReader API</td>
-                <td bgcolor="red">4 to 5</td>
-                <td bgcolor="red">2 to 3.5</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">5.5 to 9</td>
-                <td bgcolor="red">3.2 to 5.0-5.1</td>
-                <td bgcolor="red">9.5-9.6 to 11</td>
-                <td bgcolor="red">5.0-8.0</td>
-                <td bgcolor="red">3.1 to 5.1</td>
-                <td bgcolor="green"></td>
-            </tr>
-            <tr>
-                <td>Web Storage - name/value pairs</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="green"></td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">5.5</td>
-                <td bgcolor="green"></td>
-                <td bgcolor="red">9.5-9.6 to 10.0-10.1</td>
-                <td bgcolor="red">5.0-8.0</td>
-                <td bgcolor="red">3.1 to 3.2</td>
-                <td bgcolor="green"></td>
-            </tr>
-        </table>
-    </body>
-</html>
+## Output jira (formated)
+
+![jira_table.png](https://bitbucket.org/repo/AKqgag/images/2486270961-jira_table.png)
 
 ## Tests
 Manual tests done. Unittests under construction!
@@ -100,6 +28,7 @@ Manual tests done. Unittests under construction!
 - Jira custom format bug fix
 - find embedded js in eg HTML files
 - make .sh install script
+- Make unit tests
 
 ## Release notes
 Jira format not copy and paste ready made. Need to remove certain nl and whitespaces.
