@@ -16,24 +16,24 @@
         <table>
             <tr>
                 <th></th>
-                {% for browser in template_data["browsername"] %}
+                {%- for browser in template_data["browsername"] %}
                 <th>{{browser}}</th>
-                {% endfor %}
+                {%- endfor %}
             </tr>
-            {% for function in template_data.keys() %}
-                {% if function != "browsername" %}
+            {%- for function in template_data.keys() %}
+                {%- if function != "browsername" %}
             <tr>
                 <td>{{ function }}</td>
-                        {% for browser in template_data["browsername"] %}
-                            {% if template_data[function].get(browser) %}
+                        {%- for browser in template_data["browsername"] %}
+                            {%- if template_data[function].get(browser) %}
                 <td bgcolor="red">{{ template_data[function][browser] }}</td>
-                            {% else %}
+                            {%- else %}
                 <td bgcolor="green"></td>
-                            {% endif %}
-                        {% endfor %}
+                            {%- endif %}
+                        {%- endfor %}
             </tr>
-                {% endif %}
-            {% endfor %}
+                {%- endif %}
+            {%- endfor %}
         </table>
     </body>
 </html>

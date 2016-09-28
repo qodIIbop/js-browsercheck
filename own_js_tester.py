@@ -21,10 +21,9 @@ from jinja2 import Environment, PackageLoader
 URL = 'http://jscc.info/'
 APP_RESULTS_MAIN_FOLDER = os.path.expanduser('~/js-browser/')
 APP_FOLDER = os.getcwd()
-APP = os.path.join(APP_FOLDER, 'own_js_tester.py')
 TEMPLATES = os.path.join(APP_FOLDER, 'templates')
 RESULT_TABLE_NAME = 'Final_eval'
-ENV = Environment(loader=PackageLoader('own_js_tester','templates'), trim_blocks=True, lstrip_blocks=True)
+ENV = Environment(loader=PackageLoader('own_js_tester','templates'))
 BROWSERNAME_JSON = os.path.join(TEMPLATES, 'Browsername.JSON')
 
 #create_folder.py
@@ -215,7 +214,7 @@ def create_results_JIRA(result_json_loc, location, fname):
     with open(BROWSERNAME_JSON, "r") as get_bnames:
         template_data["browsername"] = json.load(get_bnames)
     get_bnames.close()
-    fname = fname+".txt"
+    fname = fname+".md"
     result_table = location+"/"+fname
     with open(result_json_loc, "r") as input_file:
         data = json.load(input_file)

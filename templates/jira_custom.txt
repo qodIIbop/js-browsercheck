@@ -1,10 +1,14 @@
-||{% for browser in template_data["browsername"] %}{{browser}} |{% endfor %}\\
-{% for function in template_data.keys() %}
-    {% if function != "browsername" %}
+||{% for browser in template_data["browsername"] -%}
+    {{browser}} |
+{%- endfor %}
+{% for function in template_data.keys() -%}
+    {% if function != "browsername" -%}
         | {{ function }} |
-        {% for browser in template_data["browsername"] %}
-            {% if template_data[function].get(browser) %}{{ template_data[function][browser] }} |
-            {% else %}|{% endif %}
-        {% endfor %}\\
-    {% endif %}
+            {%- for browser in template_data["browsername"] -%}
+                {% if template_data[function].get(browser) -%}
+                    {{ template_data[function][browser] }}|
+                {%- else %}|
+                {%- endif %}
+            {%- endfor %}
+    {%- endif %}
 {% endfor %}
