@@ -17,11 +17,7 @@ The app checks the js scripts for browser incompatibilties. It uses the website 
 
 ## Output jira (formated)
 
-||Chrome  |Firefox  |Firefox for Android  |IE  |iOS Safari  |Opera  |Opera Mini  |Safari  |UC Browser for Android  |
-| FileReader API |4 to 5 |2 to 3.5 ||5.5 to 9 |3.2 to 5.0-5.1 |9.5-9.6 to 11 |5.0-8.0 |3.1 to 5.1 ||
-| Page Visibility |4 to 13 |2 to 9 ||5.5 to 9 |3.2 to 6.0-6.1 |9.5-9.6 to 12 |5.0-8.0 |3.1 to 6 ||
-| Web Storage - name/value pairs ||||5.5 ||9.5-9.6 to 10.0-10.1 |5.0-8.0 |3.1 to 3.2 ||
-| XMLHttpRequest 2 ||2 to 3 ||5.5 to 9 |3.2 to 4.2-4.3 |9.5-9.6 to 11.6 |5.0-8.0 |3.1 to 4 ||
+![jira_table.png](https://bitbucket.org/repo/AKqgag/images/2486270961-jira_table.png)
 
 ## Tests
 Manual tests done. Unittests under construction!
